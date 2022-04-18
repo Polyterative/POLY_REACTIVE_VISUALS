@@ -14,7 +14,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## OSC server
 
-Run `osc-server/bridge.js`. Needed only for `OSC` functionality.
+Run `osc-server/bridge.js`. Needed only for `OSC` functionality. Remember to install the
+dependencies before running.
 
 ## Build production
 
