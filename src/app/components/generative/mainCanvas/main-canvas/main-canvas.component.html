@@ -1,0 +1,9 @@
+  <ngt-canvas
+      [shadows]="true"
+      [camera]="cameraService.options"
+      [scene]="{ background: '#0e0e0e' | color, fog: ['#e0e0e0', 20, 1000] | fog }"
+      [size]="{ width: window.innerWidth, height: window.innerHeight }"
+  >
+    <app-canvas-content></app-canvas-content>
+  </ngt-canvas>
+  <!--<ngt-soba-loader></ngt-soba-loader>-->

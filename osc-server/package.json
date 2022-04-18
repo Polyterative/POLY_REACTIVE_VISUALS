@@ -1,0 +1,19 @@
+{
+	"name":         "osc-web",
+	"description":  "OSC (Open Sound Control) Web Bridge",
+	"version":      "1.0.0",
+	"dependencies": {
+		"node-osc":  "^6.1.16",
+		"socket.io": "^4.4.1"
+	},
+	"keywords":     [
+		"osc",
+		"socket",
+		"websockets",
+		"music"
+	],
+	"repository":   {
+		"type": "git",
+		"url":  "git://github.com/automata/osc-web.git"
+	}
+}

@@ -1,0 +1,29 @@
+<ngt-canvas
+    (created)="$event.camera.lookAt(0, 0, 0)"
+    [shadows]="true"
+    [camera]="{ fov: 35, far: 1000, position: [-25, 25, 25] }"
+    [scene]="{ background: '#0e0e0e' | color, fog: ['#e0e0e0', 20, 100] | fog }"
+    [size]="{ width: window.innerWidth, height: window.innerHeight }"
+>
+  <ngt-stats></ngt-stats>
+  <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+  <ngt-soba-stars></ngt-soba-stars>
+  <!--  <ngt-ambient-light [color]="'#ffffff' | color"></ngt-ambient-light>-->
+  <ngt-grid-helper
+      #ngtGridHelper="ngtGridHelper"
+      (ready)="onGridHelperReady(ngtGridHelper.helper)"
+      [args]="[100, 40, '#000000', '#000000']"
+      [receiveShadow]="true"
+  ></ngt-grid-helper>
+  <!--  <ng-container *ngFor="let item of generators;">-->
+  <!--    <ngt-mesh [position]="[item.movementManager.coordinates.current.x,1,0]"-->
+  <!--              [rotation]="threeConstants.angles.top"-->
+  <!--    >-->
+  <!--      <ngt-circle-geometry [args]="[5,32]"></ngt-circle-geometry>-->
+  <!--      &lt;!&ndash;    <ngt-box-geometry [args]="[5,10]"></ngt-box-geometry>&ndash;&gt;-->
+  <!--      &lt;!&ndash;    <ngt-line-dashed-material [parameters]="{ color: '#227e1e' | color, }"></ngt-line-dashed-material>&ndash;&gt;-->
+  <!--    </ngt-mesh>-->
+  <!--  </ng-container>-->
+
+</ngt-canvas>
+<!--<ngt-soba-loader></ngt-soba-loader>-->

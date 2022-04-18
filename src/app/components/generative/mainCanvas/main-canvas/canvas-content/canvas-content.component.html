@@ -1,0 +1,27 @@
+<ngt-stats></ngt-stats>
+
+<!--<ngt-soba-orbit-controls></ngt-soba-orbit-controls>-->
+
+<!--<ngt-soba-stars [radius]="500"></ngt-soba-stars>-->
+<ngt-ambient-light [color]="'#ffffff' | color"></ngt-ambient-light>
+
+
+<app-generated-objects></app-generated-objects>
+
+<!--<ngt-mesh [position]="[0,-50,0]">-->
+<!--  <ngt-grid-helper-->
+<!--      #ngtGridHelper="ngtGridHelper"-->
+<!--      (ready)="onGridHelperReady(ngtGridHelper.helper)"-->
+<!--      [args]="[10000, 50, '#000000', '#000000']"-->
+<!--      [receiveShadow]="true"-->
+<!--  ></ngt-grid-helper>-->
+<!--</ngt-mesh>-->
+
+<ngt-mesh [position]="[0,0,0]">
+  <ngt-grid-helper
+      #ngtGridHelper="ngtGridHelper"
+      (ready)="onGridHelperReady(ngtGridHelper.helper)"
+      [args]="[10000, 50, '#000000', '#000000']"
+      [receiveShadow]="true"
+  ></ngt-grid-helper>
+</ngt-mesh>

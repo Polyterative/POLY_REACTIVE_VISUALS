@@ -1,0 +1,19 @@
+<ngt-mesh [position]="[5,1,-5]"
+          [rotation]="constantsService.threeConstants.angles.top"
+>
+  <ngt-circle-geometry [args]="[2.5,32]"></ngt-circle-geometry>
+  <!--    <ngt-box-geometry [args]="[5,10]"></ngt-box-geometry>-->
+  <!--    <ngt-line-dashed-material [parameters]="{ color: '#227e1e' | color, }"></ngt-line-dashed-material>-->
+</ngt-mesh>
+<ng-container *ngFor="let item of objects;">
+  <ngt-mesh [position]="item.position"
+  >
+    <!--    <ng-container *ngIf="item.type==types.FLAT_CIRCLE">-->
+    <!--      <ngt-circle-geometry [args]="[20,16]"></ngt-circle-geometry>-->
+    <!--    </ng-container>-->
+  
+    <ng-container *ngIf="item.type==types.DOTGRID">
+      <app-object-dotgrid [item]="item"></app-object-dotgrid>
+    </ng-container>
+  </ngt-mesh>
+</ng-container>
