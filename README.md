@@ -12,7 +12,7 @@ Boilerplate angular README:
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## OSC server
+## OSC ([Open Sound Control](https://en.wikipedia.org/wiki/Open_Sound_Control?oldformat=true)) server
 
 Run `osc-server/bridge.js`. Needed only for `OSC` functionality. Remember to install the
 dependencies before running.
