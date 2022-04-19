@@ -11,9 +11,5 @@
 		"socket",
 		"websockets",
 		"music"
-	],
-	"repository":   {
-		"type": "git",
-		"url":  "git://github.com/automata/osc-web.git"
-	}
+	]
 }
