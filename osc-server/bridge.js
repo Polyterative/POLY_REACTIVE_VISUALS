@@ -40,9 +40,9 @@ server.on('connection', socket => {
     });
     socket.on("disconnect", function () {
         if (oscServer) {
+            console.log(socket.id + ' disconnected');
             oscServer.close();
             oscClient.close();
-            console.log('oscServer disconnected');
         }
     })
 });
