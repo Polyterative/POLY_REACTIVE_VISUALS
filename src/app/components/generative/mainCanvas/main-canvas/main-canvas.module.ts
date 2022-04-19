@@ -1,24 +1,24 @@
+import { NgtColorPipeModule, NgtCoreModule, NgtCursorModule, NgtFogPipeModule, NgtRadianPipeModule } from '@angular-three/core';
 import {
-  NgtColorPipeModule, NgtCoreModule, NgtFogPipeModule, NgtObjectInputsControllerModule, NgtRadianPipeModule
-} from '@angular-three/core';
-import {
-  NgtBoxGeometryModule, NgtBufferGeometryModule, NgtCircleGeometryModule, NgtConeGeometryModule, NgtSphereGeometryModule
+  NgtBoxGeometryModule, NgtCircleGeometryModule, NgtConeGeometryModule, NgtSphereGeometryModule, NgtTetrahedronGeometryModule
 } from '@angular-three/core/geometries';
 import { NgtBoxHelperModule, NgtGridHelperModule } from '@angular-three/core/helpers';
 import { NgtAmbientLightModule, NgtDirectionalLightModule, NgtHemisphereLightModule } from '@angular-three/core/lights';
 import {
-  NgtLineBasicMaterialModule, NgtLineDashedMaterialModule, NgtMeshBasicMaterialModule, NgtMeshPhongMaterialModule,
-  NgtMeshPhysicalMaterialModule, NgtMeshStandardMaterialModule
+  NgtLineBasicMaterialModule, NgtLineDashedMaterialModule, NgtMeshBasicMaterialModule, NgtMeshLambertMaterialModule,
+  NgtMeshPhongMaterialModule, NgtMeshPhysicalMaterialModule, NgtMeshStandardMaterialModule
 } from '@angular-three/core/materials';
-import { NgtMeshModule } from '@angular-three/core/meshes';
+import { NgtInstancedMeshModule, NgtMeshModule } from '@angular-three/core/meshes';
 import { NgtStatsModule } from '@angular-three/core/stats';
+import { NgtEffectComposerModule } from '@angular-three/postprocessing';
+import { NgtBloomModule } from '@angular-three/postprocessing/effects';
 import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
 import { NgtSobaStarsModule } from '@angular-three/soba/staging';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CanvasContentComponent } from './canvas-content/canvas-content.component';
 import { GeneratedObjectsComponent } from './canvas-content/generated-objects/generated-objects.component';
-import { ObjectDotgridComponent } from './canvas-content/generated-objects/object-dotgrid/object-dotgrid.component';
+import { OriginIndicatorsComponent } from './canvas-content/origin-indicators/origin-indicators.component';
 import { MainCanvasComponent } from './main-canvas.component';
 
 @NgModule({
@@ -26,13 +26,13 @@ import { MainCanvasComponent } from './main-canvas.component';
     MainCanvasComponent,
     CanvasContentComponent,
     GeneratedObjectsComponent,
-    ObjectDotgridComponent
+    OriginIndicatorsComponent
   ],
   exports: [
     MainCanvasComponent,
     CanvasContentComponent,
     GeneratedObjectsComponent,
-    ObjectDotgridComponent
+    OriginIndicatorsComponent
   ],
   imports: [
     CommonModule,
@@ -43,8 +43,6 @@ import { MainCanvasComponent } from './main-canvas.component';
     NgtFogPipeModule,
 //
     NgtMeshModule,
-//
-    NgtObjectInputsControllerModule,
 //
     NgtBoxGeometryModule,
     NgtConeGeometryModule,
@@ -67,10 +65,17 @@ import { MainCanvasComponent } from './main-canvas.component';
     NgtSobaOrbitControlsModule,
 //
     NgtCircleGeometryModule,
+    NgtSphereGeometryModule,
     NgtLineDashedMaterialModule,
     NgtRadianPipeModule,
-    NgtBufferGeometryModule,
-    NgtSphereGeometryModule
+    NgtInstancedMeshModule,
+    NgtTetrahedronGeometryModule,
+    NgtMeshLambertMaterialModule,
+    NgtCursorModule,
+    //
+    NgtEffectComposerModule,
+    NgtBloomModule
+    //
   ]
 })
 export class MainCanvasModule {}

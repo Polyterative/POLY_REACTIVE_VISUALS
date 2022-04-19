@@ -11,7 +11,7 @@ export class LifetimeManager {
   private birthTime: number = 0;
 
   constructor(
-    currentTime$: Observable<number>,
+    currentTime$: Observable<number>, // unit is ticks
     desiredLifeTime: number,
     destroy$: Observable<void>
   ) {

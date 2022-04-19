@@ -1,7 +1,7 @@
 import p5 from 'p5';
 import { BehaviorSubject } from 'rxjs';
-import { LifetimeManager } from './LifetimeManager';
-import { MovementManager } from './MovementManager';
+import { LifetimeManager } from '../mainCanvas/main-canvas/canvas-content/generated-objects/LifetimeManager';
+import { MovementManager } from '../mainCanvas/main-canvas/canvas-content/generated-objects/MovementManager';
 
 export namespace Models {
 

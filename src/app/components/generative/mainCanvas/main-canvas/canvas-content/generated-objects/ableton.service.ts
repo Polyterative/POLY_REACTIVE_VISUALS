@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { io } from 'socket.io-client';
 // import * as osc from 'osc';
 // import * as osc from 'osc';
@@ -10,97 +10,82 @@ import { io } from 'socket.io-client';
   providedIn: 'root'
 })
 export class AbletonService {
-  // osc = osc;
-  events = {
-    note$: new Subject<number>()
+  public readonly events: { kick: EventContainer } = {
+    kick: new EventContainer('/kick')
+  }
+
+  system = {
+    messageReceived$: new Subject<[string, number]>()
   }
 
   constructor() {
 
-    let socket = io('http://localhost:8081');
+    this.setupSocketListener();
 
-    console.log('socket', socket);
+    this.handleMessages();
+
+  }
+
+  private handleMessages(): void {
+    let eventContainers: EventContainer[] = Object.values(this.events);
+
+    this.system.messageReceived$
+      .subscribe(
+        ([channel, value]) => {
+          // update value on message received
+
+          let container: EventContainer | undefined = eventContainers.find(x => x.channel === channel);
+
+          if (container) {
+            container.value$.next(value * 100);
+            // console.log(`received value ${value} on channel ${channel}`);
+          } else {
+            console.log(`%cNo container found for channel ${ channel }`, 'color: red');
+          }
+
+        }
+      );
+  }
+
+  private setupSocketListener(): void {
+    let socket = io('http://localhost:8081');
 
     // client-side
     socket.on('connect', () => {
-      console.log(socket.id);
+      // write 'connected to socket ' in green text in console
+      console.log(`\x1b[32m%s\x1b[0m`, `connected to socket, id: ${ socket.id }`);
     });
 
     socket.on('disconnect', () => {
       console.log(socket.id);
     });
 
-    socket.on('connect', function () {
-      console.log('connected');
+    let events = this.system;
 
-      // sends to socket.io server the host/port of oscServer
-      // and oscClient
-      // socket.emit(
-      //   'config',
-      //   {
-      //     server: {
-      //       port: 8001,
-      //       host: '127.0.0.1'
-      //     },
-      //     client: {
-      //       port: 8000,
-      //       host: '127.0.0.1'
-      //     }
-      //   }
-      // );
+    socket.on('message', function (obj: [string, number]) {
+      // console.log('.');
+      // console.log('obj', new OscMessage(obj[0], obj[1]));
+      events.messageReceived$.next(obj);
     });
 
-    socket.on('message', function (obj) {
-      var status = document.getElementById('status');
-      console.log(obj);
-    });
-
-    socket.on('emit', function (obj) {
-      console.log(obj);
-    });
-
-    // interval(1000).subscribe(() => {
-    //   socket.emit('message', '/foo/bar 1 2 3');
-    //   console.log('sent');
-    //
+    // socket.on('emit', function (obj) {
+    //   // console.log('.');
+    //   // console.log('obj', obj);
+    //   events.note$.next(new OscMessage(obj[0], obj[1]));
     // });
   }
-
 }
 
-// // osc :Osc
-// constructor(
-//   zone: NgZone
-// ) {
-//
-//   var socket = io('localhost:8081');
-//
-//   socket.on('connect', function () {
-//     console.warn('connected');
-//
-//     // sends to socket.io server the host/port of oscServer
-//     // and oscClient
-//     socket.emit(
-//       'config',
-//       {
-//         server: {
-//           port: 8001,
-//           host: '127.0.0.1'
-//         },
-//         client: {
-//           port: 8000,
-//           host: '127.0.0.1'
-//         }
-//       }
-//     );
-//   });
-//
-//   socket.on('message', function (obj) {
-//     // status.innerHTML = obj[1]+" "+obj[0];
-//     console.log(obj);
-//   });
-//
-//   console.log(socket);
-//
-// }
-// }
+export interface OscMessage {
+  channel: string;
+  value: number;
+}
+
+export class EventContainer {
+  constructor(
+    public channel: string,
+    public value$: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  ) {
+
+  }
+}

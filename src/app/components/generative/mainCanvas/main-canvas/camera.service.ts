@@ -1,3 +1,4 @@
+import { NgtResize } from '@angular-three/core';
 import { Injectable } from '@angular/core';
 import { merge } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';
@@ -6,25 +7,53 @@ import { ConstantsService } from './constants.service';
 @Injectable()
 export class CameraService {
 
-  public options: PerspectiveCamera = new PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 5000);
+  public options: PerspectiveCamera = this.buildCamera();
 
   private zHorizon = new Vector3(0, 0, 100000);
+  private center = new Vector3(0, 0, 0);
 
   public speedDivider = 1.5;
 
   constructor(
-    private constantsService: ConstantsService
+    private constantsService: ConstantsService,
+    private resizeService: NgtResize
   ) {
-    this.options.position.add(new Vector3(0, 50, 0));
+
+    // this.resizeService
+    //   .pipe(
+    //
+    //   )
+    //   .subscribe(value => {
+    //     this.options.aspect = value.width / value.height;
+    //     this.options.fov = 35;
+    //     this.options.updateProjectionMatrix();
+    //   })
+
+    this.options.position.add(new Vector3(20, 20, 20));
     // this.options.lookAt(this.zHorizon);
-    this.options.lookAt(new Vector3(0, 50, 1000));
+    this.options.lookAt(this.center);
 
     merge(
       this.constantsService.tick$
     )
       .subscribe(() => {
-        this.options.position.add(new Vector3(0, 0, (1 / this.speedDivider)));
+        // this.options.position.add(new Vector3(0, 0, (1 / this.speedDivider)));
       });
+
+    this.constantsService.tick$.subscribe(() => {
+      // slowly rotate camera around center
+      let rotationSpeed: number = this.constantsService.tick / 2000 + Math.cos(this.constantsService.tick / 1000);
+
+      let distanceFromCenter: number = 10;
+      this.options.position.set(
+        Math.sin(rotationSpeed) * distanceFromCenter,
+        5,
+        Math.cos(rotationSpeed) * distanceFromCenter
+      );
+
+      this.options.lookAt(this.center.clone().add(new Vector3(0, 2, 0)));
+
+    });
 
     // move camera every four beats
     // this.constantsService.beat$.subscribe((x) => {
@@ -36,5 +65,7 @@ export class CameraService {
 
   }
 
-
+  private buildCamera(): PerspectiveCamera {
+    return new PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 5000);
+  }
 }

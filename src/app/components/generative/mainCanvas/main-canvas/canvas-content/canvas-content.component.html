@@ -3,10 +3,14 @@
 <!--<ngt-soba-orbit-controls></ngt-soba-orbit-controls>-->
 
 <!--<ngt-soba-stars [radius]="500"></ngt-soba-stars>-->
-<ngt-ambient-light [color]="'#ffffff' | color"></ngt-ambient-light>
+<ngt-ambient-light [color]="'#a4a4a4' | color"
+                   [position]="[0, 10, 0]"
+                   [intensity]="1"
+></ngt-ambient-light>
 
 
 <app-generated-objects></app-generated-objects>
+
 
 <!--<ngt-mesh [position]="[0,-50,0]">-->
 <!--  <ngt-grid-helper-->
@@ -19,9 +23,14 @@
 
 <ngt-mesh [position]="[0,0,0]">
   <ngt-grid-helper
-      #ngtGridHelper="ngtGridHelper"
-      (ready)="onGridHelperReady(ngtGridHelper.helper)"
-      [args]="[10000, 50, '#000000', '#000000']"
+      (ready)="onGridHelperReady($event)"
+      [args]="[100, 50, 'rgb(0,0,0)', 'rgb(0,0,0)']"
       [receiveShadow]="true"
   ></ngt-grid-helper>
 </ngt-mesh>
+<app-origin-indicators></app-origin-indicators>
+
+<!--<ngt-effect-composer>-->
+<!--  <ngt-bloom></ngt-bloom>-->
+<!--  <ngt-noise [options]="{ premultiply: true }"></ngt-noise>-->
+<!--</ngt-effect-composer>-->

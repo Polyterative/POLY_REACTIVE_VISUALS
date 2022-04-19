@@ -1,19 +1,33 @@
-<ngt-mesh [position]="[5,1,-5]"
-          [rotation]="constantsService.threeConstants.angles.top"
->
-  <ngt-circle-geometry [args]="[2.5,32]"></ngt-circle-geometry>
-  <!--    <ngt-box-geometry [args]="[5,10]"></ngt-box-geometry>-->
-  <!--    <ngt-line-dashed-material [parameters]="{ color: '#227e1e' | color, }"></ngt-line-dashed-material>-->
-</ngt-mesh>
-<ng-container *ngFor="let item of objects;">
-  <ngt-mesh [position]="item.position"
-  >
-    <!--    <ng-container *ngIf="item.type==types.FLAT_CIRCLE">-->
-    <!--      <ngt-circle-geometry [args]="[20,16]"></ngt-circle-geometry>-->
-    <!--    </ng-container>-->
+<!--<ngt-group>-->
+<!--  <ngt-instanced-mesh [args]="[data.length]"-->
+<!--                      (ready)="instancedGridReady($event)"-->
+<!--                      #points-->
+<!--                      ngtCursor-->
+<!--  >-->
+<!--    <ngt-tetrahedron-geometry></ngt-tetrahedron-geometry>-->
+<!--  -->
+<!--    <ngt-mesh-standard-material-->
+<!--        [parameters]='{ color: "#ffffff", roughness: 0.5, metalness: 0.5 }'-->
+<!--    ></ngt-mesh-standard-material>-->
+<!--  </ngt-instanced-mesh>-->
+<!--  &lt;!&ndash;</ngt-mesh>&ndash;&gt;-->
+<!--  -->
+<!--  -->
+<!--</ngt-group>-->
+
+
+<ngt-group>
   
-    <ng-container *ngIf="item.type==types.DOTGRID">
-      <app-object-dotgrid [item]="item"></app-object-dotgrid>
-    </ng-container>
+  <ngt-mesh *ngFor="let point of points"
+            [position]="point.current.position"
+            [rotation]="[0,0,0]"
+            [scale]="point.current.scale"
+            (animateReady)="animateObject( $event.object)"
+  >
+    <ngt-mesh-lambert-material></ngt-mesh-lambert-material>
+    <ngt-tetrahedron-geometry></ngt-tetrahedron-geometry>
+    <!--    <ngt-sphere-geometry></ngt-sphere-geometry>-->
   </ngt-mesh>
-</ng-container>
+
+
+</ngt-group>

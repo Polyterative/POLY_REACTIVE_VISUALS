@@ -1,3 +1,4 @@
+import { NgtResize } from '@angular-three/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CameraService } from './camera.service';
 import { ConstantsService } from './constants.service';
@@ -7,6 +8,7 @@ import { ConstantsService } from './constants.service';
   templateUrl: './main-canvas.component.html',
   styleUrls: ['./main-canvas.component.scss'],
   providers: [
+    NgtResize,
     CameraService
   ],
   changeDetection: ChangeDetectionStrategy.OnPush

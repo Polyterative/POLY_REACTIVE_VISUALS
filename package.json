@@ -10,8 +10,9 @@
     "updateAll": "ncu -u"
   },
   "private":         true,
-  "dependencies": {
+  "dependencies":    {
     "@angular-three/core":               "^4.5.0",
+    "@angular-three/postprocessing":     "^4.5.0",
     "@angular-three/schematics":         "^4.5.0",
     "@angular-three/soba":               "^4.5.0",
     "@angular/animations":               "~13.3.3",
@@ -24,8 +25,8 @@
     "@angular/router":                   "~13.3.3",
     "@tawaship/canvas-recorder":         "^1.1.1",
     "p5":                                "^1.4.1",
-    "socket.io-client":                  "^4.4.1",
     "rxjs":                              "~7.5.5",
+    "socket.io-client":                  "^4.4.1",
     "three":                             "0.137",
     "tslib":                             "^2.3.1",
     "webmidi":                           "^3.0.19",

@@ -7,6 +7,7 @@ import { Euler } from 'three';
 })
 export class ConstantsService {
 
+  // in ms
   public readonly tickRate: number = 5;
   public readonly bpm: number = 120;
   private tickCount$ = new BehaviorSubject<number>(0);
@@ -16,6 +17,8 @@ export class ConstantsService {
   private beatCount$ = new BehaviorSubject<number>(0);
 
   public beat$ = this.beatCount$;
+
+  private currentTickCount: number = 0;
 
   public readonly threeUtils = {
     degreesToEuler: (x: number, y: number, z: number) => {
@@ -37,9 +40,20 @@ export class ConstantsService {
   }
 
   constructor() {
-    interval(this.tickRate).subscribe((x) => this.tickCount$.next(x));
+    interval(this.tickRate).subscribe((x) => {
+      this.tickCount$.next(x);
+      this.currentTickCount = x;
+    });
 
     interval(this.bpm).subscribe((x) => this.beatCount$.next(x));
 
+  }
+
+  secondsToTicks(number: number): number {
+    return number * this.tickRate;
+  }
+
+  get tick(): number {
+    return this.currentTickCount;
   }
 }
