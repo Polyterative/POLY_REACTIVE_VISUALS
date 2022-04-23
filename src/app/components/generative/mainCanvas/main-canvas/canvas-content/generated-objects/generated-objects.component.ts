@@ -90,10 +90,13 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     // object.rotation.z += .11;
     // object.rotation.x = this.constantsService.tick / 1000;
 
-    let randomSize: number = Math.sin(this.constantsService.tick / 10 * point.id.x / 500);
-    object.scale.x = .1 + randomSize;
-    object.scale.y = .1 + randomSize;
-    object.scale.z = .1 + randomSize;
+    let position = point.current.position;
+    let noise = this.constantsService.simplexNoise.noise4D(position.x, position.y, position.z, this.constantsService.tick / (2000));
+
+    let randomSize: number = Math.abs(Math.sin(this.constantsService.tick / 10 * (point.id.x + 1) / 100));
+    object.scale.x = .5 + noise;
+    object.scale.y = .5 + noise;
+    object.scale.z = .5 + noise;
     // if (point.id.x % 3 === 0) {
     //   let number: number = Math.sin(this.constantsService.tick / 500) / 100;
     //   object.scale.x = number;

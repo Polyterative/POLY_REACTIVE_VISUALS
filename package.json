@@ -26,6 +26,7 @@
     "@tawaship/canvas-recorder":         "^1.1.1",
     "p5":                                "^1.4.1",
     "rxjs":                              "~7.5.5",
+    "simplex-noise":                     "^3.0.1",
     "socket.io-client":                  "^4.4.1",
     "three":                             "0.137",
     "tslib":                             "^2.3.1",

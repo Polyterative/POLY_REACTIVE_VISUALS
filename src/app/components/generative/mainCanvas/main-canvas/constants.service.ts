@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, interval } from 'rxjs';
+import SimplexNoise from 'simplex-noise';
 import { Euler } from 'three';
 
 @Injectable({
@@ -34,6 +35,8 @@ export class ConstantsService {
       );
     }
   }
+
+  public readonly simplexNoise = new SimplexNoise()
 
   public readonly threeConstants = {
     angles: {
