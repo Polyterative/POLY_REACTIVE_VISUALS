@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/16295552/164943150-150dd4bd-c7bb-4611-b7c9-fab666e1f6fc.png)
+
+
 # What is this?
 
 This project is a conformable setup to work with `three.js` and `rxjs` in an `angular` environment and philosophy.
