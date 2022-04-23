@@ -34,7 +34,7 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
 
   private buildPointArray() {
     let points: Models.Point[] = [];
-    let count = 8;
+    let count = 10;
     let height: number = count;
     let width: number = count;
     let depth: number = count;
@@ -90,13 +90,16 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     // object.rotation.z += .11;
     // object.rotation.x = this.constantsService.tick / 1000;
 
-    let position = point.current.position;
-    let noise = this.constantsService.simplexNoise.noise4D(position.x, position.y, position.z, this.constantsService.tick / (2000));
+    let position = point.current.position.clone().multiplyScalar(0.25);
+    let noise = this.constantsService.simplexNoise.noise4D(
+      position.x, position.y, position.z,
+      this.constantsService.tick / (5000 / 2)
+    ) * 5;
 
     let randomSize: number = Math.abs(Math.sin(this.constantsService.tick / 10 * (point.id.x + 1) / 100));
-    object.scale.x = .5 + noise;
-    object.scale.y = .5 + noise;
-    object.scale.z = .5 + noise;
+    object.scale.x = noise;
+    object.scale.y = noise;
+    object.scale.z = noise;
     // if (point.id.x % 3 === 0) {
     //   let number: number = Math.sin(this.constantsService.tick / 500) / 100;
     //   object.scale.x = number;
