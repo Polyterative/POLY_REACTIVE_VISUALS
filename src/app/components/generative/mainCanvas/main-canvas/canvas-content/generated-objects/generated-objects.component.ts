@@ -58,7 +58,10 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
                 .1,
                 .1
               )
-            ));
+            ), new Vector3(
+              i, j, k
+            )
+          );
 
           this.points.push(point);
         }
@@ -93,9 +96,20 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
 
   }
 
-  animateObject(object: Object3D): void {
+  animateObject(object: Object3D, point: Models.Point): void {
     // object.rotation.z += .11;
     object.rotation.x = this.constantsService.tick / 1000;
 
+    if (point.id.x % 4 === 0) {
+      let number: number = Math.sin(this.constantsService.tick / 500) / 10;
+      object.scale.x = number;
+      object.scale.y = number;
+      object.scale.z = number;
+    } else {
+      let number: number = Math.cos(this.constantsService.tick / 1000) / 10;
+      object.scale.x = number;
+      object.scale.y = number;
+      object.scale.z = number;
+    }
   }
 }

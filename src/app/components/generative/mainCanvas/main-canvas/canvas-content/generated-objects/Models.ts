@@ -38,7 +38,7 @@ export namespace Models {
   export class Point {
     public current: PositionData = new PositionData()
 
-    constructor(public original: PositionData = new PositionData()) {
+    constructor(public original: PositionData = new PositionData(), public readonly id: Vector3) {
 
       this.current.position.copy(original.position);
       this.current.rotation.copy(original.rotation);

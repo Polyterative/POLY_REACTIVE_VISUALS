@@ -22,11 +22,11 @@
             [position]="point.current.position"
             [rotation]="[0,0,0]"
             [scale]="point.current.scale"
-            (animateReady)="animateObject( $event.object)"
+            (animateReady)="animateObject( $event.object,point)"
   >
     <ngt-mesh-lambert-material></ngt-mesh-lambert-material>
-    <ngt-tetrahedron-geometry></ngt-tetrahedron-geometry>
-    <!--    <ngt-sphere-geometry></ngt-sphere-geometry>-->
+    <!--    <ngt-tetrahedron-geometry></ngt-tetrahedron-geometry>-->
+    <ngt-sphere-geometry></ngt-sphere-geometry>
   </ngt-mesh>
 
 

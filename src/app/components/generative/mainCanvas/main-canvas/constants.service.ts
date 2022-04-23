@@ -8,8 +8,11 @@ import { Euler } from 'three';
 export class ConstantsService {
 
   // in ms
-  public readonly tickRate: number = 5;
+  public readonly tickRate: number = 10;
   public readonly bpm: number = 120;
+
+  private startTime = new Date();
+
   private tickCount$ = new BehaviorSubject<number>(0);
 
   public tick$ = this.tickCount$.asObservable();
@@ -41,8 +44,9 @@ export class ConstantsService {
 
   constructor() {
     interval(this.tickRate).subscribe((x) => {
-      this.tickCount$.next(x);
-      this.currentTickCount = x;
+      let difference: number = new Date().getTime() - this.startTime.getTime();
+      this.tickCount$.next(difference);
+      this.currentTickCount = difference;
     });
 
     interval(this.bpm).subscribe((x) => this.beatCount$.next(x));
