@@ -1,7 +1,7 @@
 import { NgtAnimationFrameStore } from '@angular-three/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { InstancedMesh, Object3D, Vector3 } from 'three';
+import { Object3D, Vector3 } from 'three';
 import { CameraService } from '../../camera.service';
 import { ConstantsService } from '../../constants.service';
 import { AbletonService } from './ableton.service';
@@ -16,7 +16,7 @@ import PositionData = Models.PositionData;
 })
 export class GeneratedObjectsComponent implements OnInit, OnDestroy {
 
-  points: Models.Point[] = [];
+  renderedPoints: Models.Point[] = this.buildPointArray();
 
   types = Models.ObjectTypes;
   private destroy$ = new Subject<void>();
@@ -29,9 +29,12 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     private animationFrameStore: NgtAnimationFrameStore
   ) {
 
-    // build 3d array of points
 
-    let count = 4;
+  }
+
+  private buildPointArray() {
+    let points: Models.Point[] = [];
+    let count = 8;
     let height: number = count;
     let width: number = count;
     let depth: number = count;
@@ -44,9 +47,9 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
           let point = new Models.Point(
             new PositionData(
               new Vector3(
-                i + distanceBetweenPoints - width / 2,
-                j + distanceBetweenPoints,
-                k + distanceBetweenPoints - depth / 2
+                (i * distanceBetweenPoints) - width * distanceBetweenPoints / 2,
+                (j * distanceBetweenPoints),
+                (k * distanceBetweenPoints) - width * distanceBetweenPoints / 2
               ),
               new Vector3(
                 0,
@@ -54,22 +57,21 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
                 0
               ),
               new Vector3(
-                .1,
-                .1,
-                .1
+                .01,
+                .01,
+                .01
               )
             ), new Vector3(
               i, j, k
             )
           );
 
-          this.points.push(point);
+          points.push(point);
         }
       }
     }
 
-    console.log(this.points);
-
+    return points;
   }
 
   ngOnInit(): void {
@@ -84,32 +86,25 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  gap = 1
-  numberOfItems: number = 256;
-  // square root of number of items
-  numberOfRows: number = Math.sqrt(this.numberOfItems);
-  numberOfColumns: number = Math.sqrt(this.numberOfItems);
-
-  instancedGridReady(instancedMesh: InstancedMesh) {
-
-    console.log(instancedMesh)  // move grid coords to center the grid
-
-  }
-
   animateObject(object: Object3D, point: Models.Point): void {
     // object.rotation.z += .11;
-    object.rotation.x = this.constantsService.tick / 1000;
+    // object.rotation.x = this.constantsService.tick / 1000;
 
-    if (point.id.x % 4 === 0) {
-      let number: number = Math.sin(this.constantsService.tick / 500) / 10;
-      object.scale.x = number;
-      object.scale.y = number;
-      object.scale.z = number;
-    } else {
-      let number: number = Math.cos(this.constantsService.tick / 1000) / 10;
-      object.scale.x = number;
-      object.scale.y = number;
-      object.scale.z = number;
-    }
+    let randomSize: number = Math.sin(this.constantsService.tick / 10 * point.id.x / 500);
+    object.scale.x = .1 + randomSize;
+    object.scale.y = .1 + randomSize;
+    object.scale.z = .1 + randomSize;
+    // if (point.id.x % 3 === 0) {
+    //   let number: number = Math.sin(this.constantsService.tick / 500) / 100;
+    //   object.scale.x = number;
+    //   object.scale.y = number;
+    //   object.scale.z = number;
+    // } else {
+    //   let number: number = Math.sin(this.constantsService.tick / 1000) / 100;
+    //   object.scale.x = number;
+    //   object.scale.y = number;
+    //   object.scale.z = number;
+    // }
   }
+
 }

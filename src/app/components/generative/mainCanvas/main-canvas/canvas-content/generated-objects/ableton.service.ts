@@ -88,4 +88,8 @@ export class EventContainer {
   ) {
 
   }
+
+  get value(): number {
+    return this.value$.value;
+  }
 }

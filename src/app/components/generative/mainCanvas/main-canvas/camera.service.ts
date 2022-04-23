@@ -29,7 +29,7 @@ export class CameraService {
     //     this.options.updateProjectionMatrix();
     //   })
 
-    this.options.position.add(new Vector3(20, 20, 20));
+    // this.options.position.add(new Vector3(15, 15, 15));
     // this.options.lookAt(this.zHorizon);
     this.options.lookAt(this.center);
 
@@ -42,16 +42,17 @@ export class CameraService {
 
     this.constantsService.tick$.subscribe(() => {
       // slowly rotate camera around center
-      let rotationSpeed: number = this.constantsService.tick / 2000 + Math.cos(this.constantsService.tick / 1000);
+      // let wobble: number = Math.cos(this.constantsService.tick / 50000);
+      let rotationSpeed: number = this.constantsService.tick / 15000;
 
       let distanceFromCenter: number = 10;
       this.options.position.set(
         Math.sin(rotationSpeed) * distanceFromCenter,
-        5,
+        -2.5,
         Math.cos(rotationSpeed) * distanceFromCenter
       );
 
-      this.options.lookAt(this.center.clone().add(new Vector3(0, 2, 0)));
+      this.options.lookAt(this.center.clone().add(new Vector3(0, 2.5, 0)));
 
     });
 
