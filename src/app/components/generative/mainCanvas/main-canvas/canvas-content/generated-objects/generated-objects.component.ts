@@ -1,7 +1,7 @@
-import { NgtAnimationFrameStore } from '@angular-three/core';
+import { NgtAnimationFrameStore, NgtRender } from '@angular-three/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Object3D, Vector3 } from 'three';
+import { InstancedMesh, Matrix4, Object3D, Vector3 } from 'three';
 import { CameraService } from '../../camera.service';
 import { ConstantsService } from '../../constants.service';
 import { AbletonService } from './ableton.service';
@@ -16,7 +16,7 @@ import PositionData = Models.PositionData;
 })
 export class GeneratedObjectsComponent implements OnInit, OnDestroy {
 
-  renderedPoints: Models.Point[] = this.buildPointArray();
+  points: Models.Point[] = this.buildPointArray();
 
   types = Models.ObjectTypes;
   private destroy$ = new Subject<void>();
@@ -34,12 +34,12 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
 
   private buildPointArray() {
     let points: Models.Point[] = [];
-    let count = 10;
+    let count = 16; // number of points in each dimension
     let height: number = count;
     let width: number = count;
     let depth: number = count;
 
-    let distanceBetweenPoints: number = .5;
+    let distanceBetweenPoints: number = .25;
 
     for (let i = 0; i < height; i++) {
       for (let j = 0; j < width; j++) {
@@ -113,4 +113,34 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     // }
   }
 
+  setupMesh(inst: InstancedMesh) {
+
+    this.points.forEach((item, index) => {
+      const matrix = new Matrix4();
+      matrix.setPosition(item.current.position);
+      matrix.scale(item.current.scale);
+      inst.setMatrixAt(index, matrix);
+      inst.instanceMatrix.needsUpdate = true;
+
+      // inst.setColorAt(index, item.color);
+    })
+  }
+
+  animateMesh($event: { state: NgtRender; object: Object3D }): void {
+    let object = <InstancedMesh>$event.object;
+
+    this.points.forEach((child, index) => {
+      // let distanceFromCenter = child.position.distanceTo(new Vector3(0, 0, 0));
+
+      // move the individual instance closer to the center 0,0,0
+      // child.position.add(new Vector3(-distanceFromCenter / 100, -distanceFromCenter / 100, -distanceFromCenter / 100));
+
+      const matrix = new Matrix4();
+      matrix.setPosition(child.current.position);
+      matrix.scale(child.current.scale);
+      object.setMatrixAt(index, matrix);
+    });
+
+    object.instanceMatrix.needsUpdate = true;
+  }
 }

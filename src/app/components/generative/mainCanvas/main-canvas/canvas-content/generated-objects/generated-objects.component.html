@@ -16,17 +16,11 @@
 <!--</ngt-group>-->
 
 
-<ngt-group>
-  
-  <ngt-mesh *ngFor="let point of renderedPoints"
-            [position]="point.current.position"
-            [rotation]="[0,0,0]"
-            (animateReady)="animateObject( $event.object,point)"
-  >
-    <ngt-mesh-lambert-material></ngt-mesh-lambert-material>
-    <!--    <ngt-tetrahedron-geometry></ngt-tetrahedron-geometry>-->
-    <ngt-sphere-geometry [args]="[point.current.scale.x,8]"></ngt-sphere-geometry>
-  </ngt-mesh>
-
-
-</ngt-group>
+<ngt-instanced-mesh #inst="ngtInstancedMesh"
+                    [args]="[points.length]"
+                    (ready)="setupMesh(inst.mesh)"
+                    (animateReady)="animateMesh($any($event))"
+>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+</ngt-instanced-mesh>
