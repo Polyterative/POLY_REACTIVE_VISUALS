@@ -16,11 +16,13 @@
 <!--</ngt-group>-->
 
 
-<ngt-instanced-mesh #inst="ngtInstancedMesh"
+<ngt-instanced-mesh #mesh="ngtInstancedMesh"
                     [args]="[points.length]"
-                    (ready)="setupMesh(inst.mesh)"
+                    (ready)="setupMesh(mesh.mesh)"
                     (animateReady)="animateMesh($any($event))"
 >
-  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-tetrahedron-geometry></ngt-tetrahedron-geometry>
+  
+  <!--  <ngt-sphere-geometry></ngt-sphere-geometry>-->
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-instanced-mesh>

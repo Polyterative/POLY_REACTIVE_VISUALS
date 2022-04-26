@@ -25,7 +25,7 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     public cameraService: CameraService,
     public constantsService: ConstantsService,
     private changeDetector: ChangeDetectorRef,
-    private oscServer: AbletonService,
+    private abletonService: AbletonService,
     private animationFrameStore: NgtAnimationFrameStore
   ) {
 
@@ -39,7 +39,7 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
     let width: number = count;
     let depth: number = count;
 
-    let distanceBetweenPoints: number = .25;
+    let distanceBetweenPoints: number = .5 / 2;
 
     for (let i = 0; i < height; i++) {
       for (let j = 0; j < width; j++) {
@@ -129,15 +129,36 @@ export class GeneratedObjectsComponent implements OnInit, OnDestroy {
   animateMesh($event: { state: NgtRender; object: Object3D }): void {
     let object = <InstancedMesh>$event.object;
 
+    let xxx: boolean = this.constantsService.tick % 5000 > 4000;
+    let center: Vector3 = new Vector3(0, 2, 0);
+
     this.points.forEach((child, index) => {
-      // let distanceFromCenter = child.position.distanceTo(new Vector3(0, 0, 0));
+      let distanceFromCenter = child.current.position.distanceTo(center);
 
       // move the individual instance closer to the center 0,0,0
-      // child.position.add(new Vector3(-distanceFromCenter / 100, -distanceFromCenter / 100, -distanceFromCenter / 100));
 
       const matrix = new Matrix4();
+
+      if (true) {
+
+        // add a bit of randomness to the distanceFromCenter
+
+        let gravity: number = this.abletonService.events.kick.value / 200;
+        distanceFromCenter += Math.random() * gravity;
+
+        child.current.position.set(
+          child.current.position.x + (center.x - child.current.position.x) / distanceFromCenter * gravity / distanceFromCenter,
+          child.current.position.y + (center.y - child.current.position.y) / distanceFromCenter * gravity / distanceFromCenter,
+          child.current.position.z + (center.z - child.current.position.z) / distanceFromCenter * gravity / distanceFromCenter
+        );
+        matrix.scale(child.current.scale);
+
+        // matrix.scale(child.current.scale.clone().multiplyScalar((1 - 1 / 2) + Math.random() / 2));
+      } else {
+        matrix.scale(child.current.scale);
+      }
+
       matrix.setPosition(child.current.position);
-      matrix.scale(child.current.scale);
       object.setMatrixAt(index, matrix);
     });
 

@@ -20,7 +20,7 @@ export namespace Models {
     constructor(
       public position: Vector3 = new Vector3(0, 0, 0),
       public rotation: Vector3 = new Vector3(0, 0, 0),
-      public scale: Vector3 = new Vector3(1, 1, 1)
+      public scale: Vector3 = new Vector3(10, 10, 10)
     ) {
     }
   }
