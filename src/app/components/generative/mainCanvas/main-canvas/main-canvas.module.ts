@@ -17,6 +17,7 @@ import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
 import { NgtSobaStarsModule } from '@angular-three/soba/staging';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 import { CanvasContentComponent } from './canvas-content/canvas-content.component';
 import { GeneratedObjectsComponent } from './canvas-content/generated-objects/generated-objects.component';
 import { OriginIndicatorsComponent } from './canvas-content/origin-indicators/origin-indicators.component';
@@ -37,6 +38,8 @@ import { MainCanvasComponent } from './main-canvas.component';
   ],
   imports: [
     CommonModule,
+//
+    KeyboardShortcutsModule.forRoot(),
 //
     NgtCoreModule,
     NgtStatsModule,

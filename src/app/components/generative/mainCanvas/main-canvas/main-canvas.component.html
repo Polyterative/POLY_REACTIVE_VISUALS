@@ -5,5 +5,14 @@
       [size]="{ width: window.innerWidth, height: window.innerHeight }"
   >
     <app-canvas-content></app-canvas-content>
+    <ng-container *ngIf="shortcutsService.states.showFps|async">
+      <ngt-stats></ngt-stats>
+    </ng-container>
+  
+    <ng-container *ngIf="shortcutsService.states.showStars|async">
+      <ngt-soba-stars></ngt-soba-stars>
+    </ng-container>
+
   </ngt-canvas>
   <!--<ngt-soba-loader></ngt-soba-loader>-->
+  <ng-keyboard-shortcuts [shortcuts]="shortcutsService.shortcuts"></ng-keyboard-shortcuts>

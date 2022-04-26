@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~13.3.3",
     "@angular/router":                   "~13.3.3",
     "@tawaship/canvas-recorder":         "^1.1.1",
+    "ng-keyboard-shortcuts":             "10.1.17",
     "p5":                                "^1.4.1",
     "rxjs":                              "~7.5.5",
     "simplex-noise":                     "^3.0.1",

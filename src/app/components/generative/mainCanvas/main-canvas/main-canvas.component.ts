@@ -2,6 +2,7 @@ import { NgtResize } from '@angular-three/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CameraService } from './camera.service';
 import { ConstantsService } from './constants.service';
+import { ShortcutsService } from './shortcuts.service';
 
 @Component({
   selector: 'app-main-canvas',
@@ -18,7 +19,8 @@ export class MainCanvasComponent implements OnInit {
 
   constructor(
     public cameraService: CameraService,
-    public constants: ConstantsService
+    public constantsService: ConstantsService,
+    public shortcutsService: ShortcutsService
   ) { }
 
   ngOnInit(): void {
