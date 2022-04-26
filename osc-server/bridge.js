@@ -15,17 +15,13 @@ let server = new socketIo.Server(8081, {
 
 let oscServer, oscClient;
 
+oscServer = new osc.Server(8001, '127.0.0.1');
+
 server.on('connection', socket => {
 
     console.log('a user connected: ' + socket.id);
 
     // console.log(socket);
-
-
-    oscServer = new osc.Server(8001, '127.0.0.1');
-    oscClient = new osc.Client('127.0.0.1', 8000);
-
-    oscClient.send('/status', socket.id + ' connected');
 
     oscServer.on('message', function (msg, rinfo) {
         socket.emit('message', msg);
@@ -33,15 +29,23 @@ server.on('connection', socket => {
     });
 
 
+    oscClient = new osc.Client('127.0.0.1', 8000);
+    oscClient.send('/status', socket.id + ' connected');
+
     socket.on('message', function (obj) {
         var toSend = obj.split(' ');
         oscClient.send(...toSend);
         // console.log('sent WS message to OSC', toSend);
     });
     socket.on("disconnect", function () {
-        if (oscServer) {
-            console.log(socket.id + ' disconnected');
-            oscServer.close();
+        // uncomment if you want to kill the server when the client disconnects, not recommended
+        // if (oscServer) {
+        //     console.log(socket.id + ' disconnected');
+        //     oscServer.close();
+        //     oscClient.close();
+        // }
+        if (oscClient) {
+            console.log(socket.id + ' disconnected, terminating OSC client');
             oscClient.close();
         }
     })
