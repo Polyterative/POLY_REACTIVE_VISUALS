@@ -23,3 +23,8 @@ dependencies before running.
 ## Build production
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Structure
+[![Structure](https://images.repography.com/36404304/Polyterative/POLY_REACTIVE_VISUALS/structure/DJhyUHnEeu2sVvTutQewq2EPwWkJDmX2O29DLrhPRww/VB-lzzOJWu6xD1P9Hb3_zR1_nxgyEqULaofjKR9YH2Q_table.svg)](https://github.com/Polyterative/POLY_REACTIVE_VISUALS)
+
